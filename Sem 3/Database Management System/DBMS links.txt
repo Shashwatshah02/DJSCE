@@ -1,0 +1,3 @@
+V - LABS link....  http://vlabs.iitb.ac.in/vlabs-dev/labs/dblab/index.php
+My - SQL download link....  https://dev.mysql.com/downloads/installer/
+Youtube video for dwnload - https://www.youtube.com/watch?v=GIRcpjg-3Eg

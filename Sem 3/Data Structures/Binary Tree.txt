@@ -1,0 +1,229 @@
+//Binary Tree Implementation
+//Preorder : Root Left Right
+//Inorder : Left Root Right
+//Postorder : Left Right Root
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node * create(void);
+void preorder(struct node *root);
+void inorder(struct node *root);
+void postorder(struct node *root);
+
+int main()
+{
+    struct node *root=NULL;
+    root=create();
+    printf("\nPreorder Traversal : ");
+    preorder(root);
+    printf("\nInorder Traversal : ");
+    inorder(root);
+    printf("\nPostorder Traversal : ");
+    postorder(root);
+    return 0;
+}
+
+struct node * create(void)
+{
+    int a;
+    struct node *newnode;
+    newnode = (struct node *) malloc(sizeof(struct node));
+    printf("\nEnter Data (Enter -1 for no node) : ");
+    scanf("%d",&a);
+    if(a==-1)
+    {
+        return 0;
+    }
+    newnode->data=a;
+    printf("\nLeft Child of %d",a);
+    newnode->left=create();
+    printf("\nRight Child of %d",a);
+    newnode->right=create();
+    return newnode;
+}
+
+void preorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    printf("%d\t",root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void inorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d\t",root->data);
+    inorder(root->right);
+}
+
+void postorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d\t",root->data);
+}
+
+
+
+
+
+
+
+
+
+
+//Binary Search Tree Insertion Deletion
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node * create(int a);
+struct node * insertBST(struct node *root,int a);
+struct node * minVal(struct node * root);
+struct node * deleteBST(struct node *root,int a);
+void inorder(struct node *root);
+
+int main()
+{
+    int a,choice,val;
+    struct node *root=NULL,*ptr;
+    while(1)
+    {
+        printf("\n\n1. Insert Data in BST\n2. Delete Data from BST\n3. Inorder Traversal\n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                printf("\nEnter Data to Insert : ");
+                scanf("%d",&a);
+                root=insertBST(root,a);
+                break;
+            case 2:
+                printf("\nEnter the Value to be Deleted : ");
+                scanf("%d",&val);
+                root=deleteBST(root,val);
+                printf("\nInorder :\t");
+                inorder(root);
+                break;
+            case 3:
+                printf("\nInorder :\t");
+                inorder(root);
+                break;
+        }
+        
+    }
+    inorder(root);
+}
+
+struct node * create(int a)
+{
+    struct node *newnode;
+    newnode = (struct node *) malloc(sizeof(struct node));
+    newnode->data=a;
+    newnode->left=NULL;
+    newnode->right=NULL;
+    return newnode;
+}
+
+struct node * minVal(struct node * root)
+{
+    struct node *temp=root;
+    while(temp->left!=NULL)
+    {
+        temp=temp->left;
+    }
+    return temp;
+}
+
+struct node * insertBST(struct node *root,int a)
+{
+    if(root==NULL)
+    {
+        return create(a);
+    }
+    else if(a<root->data)
+    {
+        root->left=insertBST(root->left,a);
+    }
+    else if(a>root->data)
+    {
+        root->right=insertBST(root->right,a);
+    }
+    return root;
+}
+
+struct node * deleteBST(struct node *root,int a)
+{
+    if(root==NULL)
+    {
+        return root;
+    }
+
+    if(a<root->data)
+    {
+        root->left=deleteBST(root->left,a);
+    }
+
+    else if(a>root->data)
+    {
+        root->right=deleteBST(root->right,a);
+    }
+
+    else
+    {
+        if(root->left==NULL)
+        {
+            struct node *temp=root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right==NULL)
+        {
+            struct node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        struct node * minval=minVal(root->right);
+        root->data=minval->data;
+        root->right=deleteBST(root->right,minval->data);
+    }
+    return root;
+}
+
+void inorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d\t",root->data);
+    inorder(root->right);
+}

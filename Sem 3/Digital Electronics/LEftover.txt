@@ -1,0 +1,22 @@
+Quick Sort
+Polynomial Manipulation in Linked List
+Priority Queue
+Dequeue
+Topological Sort
+Bloom Filter 
+Count min Sketch
+Recurrence Relations
+Probability
+Combinatorics
+Application of trees (Max flow Min cut Theorum)
+Distributed Database
+Map ER to Relational Database
+Quine McClusky
+Encoder, Decoder
+Comparator
+Ripple Adder
+Lookahead Carryadder
+Synchronous Counters
+Shift Registers
+Programming Logic Devices
+ALU IC 74181

@@ -1,0 +1,1423 @@
+// Selection Sort 
+#include<stdio.h>
+int main(){
+    int size;
+    printf("Selection Sort : \n");
+    printf("Enter the size of the array \n");
+    scanf("%d",&size);
+    int arr[size];
+    printf("Enter the elements of the array");
+    for(int i = 0; i<size;i++){
+        scanf("%d",&arr[i]);
+    }
+    // Assume the array to be {7,6,5,4,3,2,1}
+    for(int i = 0;i<size-1;i++){
+        int min = i;
+        for(int j = i+1;j<size;j++){
+            if(arr[j] < arr[min]){
+                min = j;
+            }
+        }
+        if(min != 0){
+            int swap = arr[i];
+            arr[i] = arr[min];
+            arr[min] = swap;
+        }
+    }
+    printf("The sorted array is : ");
+    for(int i = 0; i<size;i++){
+        printf("%d \t",arr[i]);
+    }    
+    return 0;
+}
+
+
+// Insertion Sort 
+#include <stdio.h>
+
+int main(){
+    int size,i,j;
+    printf("Insertion Sort : \n");
+    printf("Enter the size of the array \n");
+    scanf("%d",&size);
+    int arr[size];
+    printf("Enter the elements of the array");
+    for(int i = 0; i<size;i++){
+        scanf("%d",&arr[i]);
+    }
+    // Assume the array to be {7,6,5,4,3,2,1}
+    for(i = 1 ; i<size;i++){
+        int temp = arr[i];
+        for(j = i-1;j>=0 && arr[j] >= temp;j--){
+            arr[j+1] = arr[j];
+        }
+        arr[j+1] = temp;
+        
+        
+    }
+    printf("The sorted array is : ");
+    for(int i = 0; i<size;i++){
+        printf("%d \t",arr[i]);
+    }
+    return 0;
+}
+
+// Singly Linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *temp, *newnode, *start = 0,*prevtemp;
+void create(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the Value : ");
+    scanf("%d",&newnode->data);
+    newnode -> next = 0;
+    if(start == 0){
+        start = temp = newnode;
+    }
+    else{
+        temp = start;
+        while(temp->next != 0){
+            temp = temp->next;
+        }
+        temp ->next= newnode;
+        temp = newnode;
+    }
+}
+void insertatbegin(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the Value : ");
+    scanf("%d",&newnode->data);
+    newnode->next = start;
+    start = newnode;
+}
+void insertatend(){
+    create();
+}
+void insertatpos(){
+    int pos;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the Value : ");
+    scanf("%d",&newnode->data);
+    printf("Enter the Position for Insertion : ");
+    scanf("%d",&pos);
+    temp = start;
+    for(int i = 0; i<pos-1;i++){
+        temp = temp->next;
+    }
+    newnode -> next = temp -> next;
+    temp -> next = newnode;
+}
+void deleteatbegin(){
+    start = start -> next;
+}
+void deleteatend(){
+    temp = start;
+    while (temp ->next != 0){
+        prevtemp = temp;
+        temp = temp -> next;
+    }
+    prevtemp -> next = 0;
+}
+void deleteatpos(){
+    int pos;
+    printf("Enter the Position for Deletion : ");
+    scanf("%d",&pos);
+    temp = start;
+    for(int i =0 ; i<pos;i++){
+        prevtemp = temp;
+        temp = temp->next;
+    }
+    prevtemp->next = temp->next;
+}
+void display(){
+    temp = start;
+    while(temp != 0){
+        printf("%d \t",temp -> data);
+        temp = temp->next;
+    }
+}
+int main(){
+    printf("Singly Linked List");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Create a Linked List");
+        printf("\n2. Insert from the Beginning");
+        printf("\n3. Insert from the End");
+        printf("\n4. Insert at a given Position");
+        printf("\n5. Delete from the Beginning");
+        printf("\n6. Delete from the End");
+        printf("\n7. Delete from the given Position");
+        printf("\n8. Display the Linked List");
+        printf("\n9. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                create();
+                break;
+            case 2:
+                insertatbegin();
+                break;
+            case 3: 
+                insertatend();
+                break;
+            case 4:
+                insertatpos();
+                break;
+            case 5:
+                deleteatbegin();
+                break;
+            case 6: 
+                deleteatend();
+                break;
+            case 7:
+                deleteatpos();
+                break;
+            case 8:
+                display();
+                break;
+            case 9:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+    return 0;
+}
+
+
+// Stack using array
+#include<stdio.h>
+#include<stdlib.h>
+# define MAX 5
+int stack[MAX];
+int top = -1;
+void push(){
+    if(top == MAX -1){
+        printf("Overflow");
+    }
+    else{
+    int data;
+    printf("Enter the value : ");
+    scanf("%d",&data);
+    top++;
+    stack[top] = data;
+    }
+}
+void pop(){
+    if(top == -1){
+        printf("Empty Stack");
+    }
+    else{
+        top--;
+    }
+}
+void peep(){
+    if(top == -1){
+        printf("Empty Stack");
+    }
+    else{
+        printf("Stack top is : %d",stack[top]);
+    }
+}
+void display(){
+    int start = top;
+    for(int i = top; i>=0;i--){
+        printf("%d \t",stack[i]);
+    }
+}
+int main(){
+    printf("Stack using Array");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Push");
+        printf("\n2. Pop");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+        
+    return 0;
+}
+
+// Queue using array
+#include<stdio.h>
+#include<stdlib.h>
+# define MAX 5
+int queue[MAX];
+int rear = -1;
+int front = -1;
+void enqueue(){
+    int data;
+    printf("Enter the value : ");
+    scanf("%d",&data);
+    if(rear == MAX -1){
+        printf("Overflow");
+    }
+    else if(front == -1 && rear == -1){
+        front = rear = 0;
+        queue[rear] = data;
+    }
+    else{
+    rear++;
+    queue[rear] = data;
+    }
+}
+void dequeue(){
+    if(front == -1 && rear == -1){
+        printf("Empty Stack");
+    }
+    else if(front == rear){
+        front = rear = -1;
+    }
+    else{
+        front++;
+    }
+}
+void peep(){
+    if(front == -1){
+        printf("Empty Queue");
+    }
+    else{
+        printf("Queue first element is : %d",queue[front]);
+    }
+}
+void display(){
+    for(int i = front;i<=rear;i++){
+        printf("%d \t",queue[i]);    
+    }
+    
+}
+int main(){
+    printf("Queue using Array");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+        
+    return 0;
+}
+
+// Circular Queue using array
+#include<stdio.h>
+#include<stdlib.h>
+# define MAX 5
+int queue[MAX];
+int rear = -1;
+int front = -1;
+void enqueue(){
+    int data;
+    printf("Enter the value : ");
+    scanf("%d",&data);
+    if(front == -1 && rear == -1){
+        front = rear = 0;
+        queue[rear] = data;
+    }
+    else if(front == (rear + 1)%MAX){
+        printf("Overflow");
+    }
+    else{
+    rear = (rear + 1)%MAX;
+    queue[rear] = data;
+    }
+}
+void dequeue(){
+    if(front == -1 && rear == -1){
+        printf("Empty Stack");
+    }
+    else if(front == rear){
+        front = rear = -1;
+    }
+    else{
+        front = (front+1)%MAX;
+    }
+}
+void peep(){
+    if(front == -1){
+        printf("Empty Queue");
+    }
+    else{
+        printf("Queue first element is : %d",queue[front]);
+    }
+}
+void display(){
+    int i = front;
+    while(i!=rear){
+        printf("%d \t",queue[i]);
+        i = (i+1)%MAX;
+    }
+    printf("%d \t",queue[i]);
+}
+int main(){
+    printf("Circular Queue using Array");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }  
+    return 0;
+}
+
+// Stack using Linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *newnode,*top = 0,*temp;
+void push(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data : ");
+    scanf("%d",&newnode->data);
+        newnode->next = top;
+        top = newnode;
+}        
+void pop(){
+    temp = top;
+    if(top == 0){
+        printf("Empty Stack");
+    }
+    else{
+    top = top -> next;
+    free(temp);
+    }
+}
+void peep(){
+    if(top == 0){
+        printf("Empty Stack");
+    }
+    else{
+        printf("The topmost element is : %d",top->data);
+    }
+}
+void display(){
+    temp = top;
+    while(temp != 0){
+        printf("%d \t",temp->data);
+        temp = temp -> next;
+        }
+}
+int main(){
+    printf("Stack using Linked List");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Push");
+        printf("\n2. Pop");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+    return 0;
+}
+
+// Stack using Doubly Linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+struct node *newnode,*top = 0,*temp;
+void push(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data : ");
+    scanf("%d",&newnode->data);
+    if(top == 0){
+        top = newnode;
+        newnode -> next = 0;
+        newnode -> prev = 0;
+    }
+    else{
+        newnode -> next = top;
+        top -> prev = newnode;
+        top = newnode;
+        newnode -> prev = 0;
+    }
+}        
+void pop(){
+    if(top == 0){
+        printf("Empty Stack");
+    }
+    else{
+    top = top -> next;
+    top -> prev = 0;
+    }
+}
+void peep(){
+    if(top == 0){
+        printf("Empty Stack");
+    }
+    else{
+        printf("The topmost element is : %d",top->data);
+    }
+}
+void display(){
+    temp = top;
+    while(temp != 0){
+        printf("%d \t",temp->data);
+        temp = temp -> next;
+        }
+}
+int main(){
+    printf("Stack using Linked List");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Push");
+        printf("\n2. Pop");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+    return 0;
+}
+
+//Queue using Linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *newnode,*front = 0,*rear = 0, *temp;
+void enqueue(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data : ");
+    scanf("%d",&newnode->data);
+        if(front == 0 && rear == 0){
+            front = rear = newnode;
+            newnode -> next = 0;
+        }
+        else{
+            rear -> next = newnode;
+            rear = newnode;
+            
+        }
+}        
+void dequeue(){
+    
+    if(front == 0 && rear == 0){
+        printf("Empty Queue");
+    }
+    else if(front == rear){
+        front = rear = 0;
+    }
+    else{
+    front = front -> next;
+    }
+}
+void peep(){
+    if(front == 0){
+        printf("Empty Queue");
+    }
+    else{
+        printf("The topmost element is : %d",front->data);
+    }
+}
+void display(){
+    temp = front;
+    while(temp != 0){
+        printf("%d \t",temp->data);
+        temp = temp -> next;
+        }
+}
+int main(){
+    printf("Queue using Linked List");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+    return 0;
+}
+
+// Queue using Doubly Linked List
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+struct node *newnode,*front = 0,*rear = 0, *temp;
+void enqueue(){
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data : ");
+    scanf("%d",&newnode->data);
+        if(front == 0 && rear == 0){
+            front = rear = newnode;
+            newnode -> next = 0;
+            newnode -> prev = 0;
+        }
+        else{
+            rear -> next = newnode;
+            newnode -> prev = rear;
+            newnode -> next = 0;
+            rear = newnode;
+            
+        }
+}        
+void dequeue(){
+    
+    if(front == 0 && rear == 0){
+        printf("Empty Queue");
+    }
+    else if(front == rear){
+        front = rear = 0;
+    }
+    else{
+    front = front -> next;
+    front -> prev = 0;
+    }
+}
+void peep(){
+    if(front == 0){
+        printf("Empty Queue");
+    }
+    else{
+        printf("The topmost element is : %d",front->data);
+    }
+}
+void display(){
+    temp = front;
+    while(temp != 0){
+        printf("%d \t",temp->data);
+        temp = temp -> next;
+        }
+}
+int main(){
+    printf("Queue using Linked List");
+    int choice;
+    while(1){
+        printf("\nChoose from the menu options given in the list :");
+        printf("\n1. Enqueue");
+        printf("\n2. Dequeue");
+        printf("\n3. Peep");
+        printf("\n4. Display");
+        printf("\n5. Exit\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3: 
+                peep();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf("Choose from the options given below : ");
+        }
+        
+    }
+    return 0;
+}
+
+// Postfix Evaluation
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int top = -1;
+char stack[100];
+
+void push(char a){
+    top++;
+    stack[top] = a;
+}
+char pop(){
+    int val = stack[top];
+    top--;
+    return val;
+}
+int main(){
+    int i,j, c=0;
+    char postfix[100];
+    printf("Enter the Postfix Expression to be evaluated : ");
+    scanf("%s",postfix);
+    for(i = 0;i<strlen(postfix);i++){
+        if(isdigit(postfix[i])){
+            push(postfix[i]-48);
+        }
+        else{
+            int a = pop();
+            int b = pop();
+            switch(postfix[i]){
+                case '+':
+                    c = b + a;
+                    break;
+                case '-':
+                    c = b - a;
+                    break;
+                case '*':
+                    c = b * a;
+                    break;
+                case '/':
+                    c = b / a;
+                    break;
+            }
+            push(c);
+        }
+    }
+    printf("Final Output Result is : %d",pop());
+}
+
+//Infix to Postfix
+#include <stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+char stack[100];
+int top=-1;
+
+void push(char a);
+char pop(void);
+int isoperator(char ch);
+int precedence(char a);
+
+int main()
+{
+    int i=0,j=0,val;
+    char infix[100],postfix[100],a;
+    printf("Enter Infix Expression : ");
+    scanf("%s",infix);
+    for(i=0;i<strlen(infix);i++)
+    {
+        if(isalnum(infix[i]))
+        {
+            j=j+1;
+            postfix[j]=infix[i];
+        }
+        else if(infix[i]=='(')
+        {
+            push(infix[i]);
+        }
+        else if(infix[i]==')')
+        {
+            while(stack[top]!='(')
+            {
+                val=pop();
+                j=j+1;
+                postfix[j]=val;
+            }
+            top=top-1;
+        }
+        else if(isoperator(infix[i]))
+        {
+            while(precedence(stack[top])>precedence(infix[i]))
+            {
+                val=pop();
+                j=j+1;
+                postfix[j]=val;
+            }
+            push(infix[i]);
+        }
+    
+    }
+    j=j+1;
+    postfix[j]='\0';
+    for(i=0;i<=j+1;i++)
+    {
+        printf("%c",postfix[i]);
+    }
+}
+
+void push(char a)
+{
+    top=top+1;
+    stack[top]=a;
+}
+
+char pop(void)
+{
+    int val=stack[top];
+    top=top-1;
+    return val;
+}
+
+int isoperator(char ch)
+{
+    return(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^');
+}
+
+int precedence(char a)
+{
+    if(a=='^')
+    {
+        return 3;
+    }
+    else if(a=='*'||a=='/')
+    {
+        return 2;
+    }
+    else if(a=='+'||a=='-')
+    {
+        return 1;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+// Linear Probing
+#include <stdio.h>
+int main()
+{
+    int size,count = 0;
+    int hashkey, hashfunction,linearhash;
+    printf("Hashing");
+    printf("Enter the size of the hash tale : ");
+    scanf("%d",&size);
+    int hashtable[size];
+    for(int i = 0; i < size;i++){
+        hashtable[i] = 0;
+    }
+    while(count < size){
+        printf("Enter the value : ");
+        scanf("%d",&hashkey);
+        hashfunction = hashkey % size;
+        if(hashtable[hashfunction] != 0){
+            printf("Collision...");
+            for(int i = 1;i<=size;i++){
+                linearhash = (hashkey + i)%size;
+                if(hashtable[linearhash] == 0){
+                    hashtable[linearhash] = hashkey;
+                    break;
+                }
+                else{
+                    printf("Collision ");
+                }
+        }
+        }
+        else{
+            hashtable[hashfunction] = hashkey;
+        }
+        
+        count++;
+    }
+    for(int i=0;i<size;i++)
+    {
+        printf("%d \t",hashtable[i]);
+    }
+
+    return 0;
+}
+
+// Quadratic Probing
+#include <stdio.h>
+int main()
+{
+    int size,count = 0;
+    int hashkey, hashfunction,linearhash;
+    printf("Hashing");
+    printf("Enter the size of the hash tale : ");
+    scanf("%d",&size);
+    int hashtable[size];
+    for(int i = 0; i < size;i++){
+        hashtable[i] = 0;
+    }
+    while(count < size){
+        printf("Enter the value : ");
+        scanf("%d",&hashkey);
+        hashfunction = hashkey % size;
+        if(hashtable[hashfunction] != 0){
+            printf("Collision...");
+            for(int i = 1;i<=size;i++){
+                linearhash = (hashkey + (i*i))%size;
+                if(hashtable[linearhash] == 0){
+                    hashtable[linearhash] = hashkey;
+                    break;
+                }
+                else{
+                    printf("Collision ");
+                }
+        }
+        }
+        else{
+            hashtable[hashfunction] = hashkey;
+        }
+        
+        count++;
+    }
+    for(int i=0;i<size;i++)
+    {
+        printf("%d \t",hashtable[i]);
+    }
+
+    return 0;
+}
+
+// BFS
+#include<stdio.h>
+#include<conio.h>
+# define MAX 5
+int queue[MAX];
+int front = -1;
+int rear = -1;
+
+void enqueue(int a){
+    if(rear == MAX - 1){
+        printf("Overflow");
+    }
+    else if(front == -1 && rear == -1){
+        front = rear = 0;
+        queue[rear] = a;
+    }
+    else{
+        rear ++;
+        queue[rear] = a;
+    }
+}
+int dequeue(){
+    if(front == -1){
+        printf("Underflow");
+    }
+    else if(front > rear){
+        printf("Underflow");
+    }
+    else{
+       int val = queue[front];
+       front++;
+       return val;
+    }
+}
+int main(){
+    int visited[MAX] = {0,0,0,0,0};
+    int arr[MAX][MAX] = {{0,1,0,1,0},
+                         {1,0,1,0,1},
+                         {0,1,0,1,0},
+                         {1,0,1,0,1},
+                         {0,1,0,1,0}};
+    int i = 3;
+    visited[i] = 1;
+    printf("%d \t",i);
+    enqueue(i);
+    while(front <=rear){
+        int value = dequeue();
+        for(int  j = 0;j<MAX;j++){
+            if(arr[value][j] == 1 && visited[j]==0){
+                visited[j] = 1;
+                printf("%d \t",j);
+                enqueue(j);
+            }
+        }
+        
+    }
+    return 0;
+}
+
+// DFS
+#include<stdio.h>
+    int visited[5] = {0,0,0,0,0};
+    int arr[5][5] = {{0,1,0,1,0},
+                    {1,0,1,0,1},
+                    {0,1,0,1,0},
+                    {1,0,1,0,1},
+                    {0,1,0,1,0}};
+void dfs(int a){
+    printf("%d \t",a);
+    visited[a] = 1;
+    for(int i = 0; i<5;i++){
+        if(arr[a][i]==1 && visited[i]==0){
+            dfs(i);
+        }
+    }
+}    
+int main(){
+        dfs(4);
+    return 0;
+}
+
+
+//Polynomial Addition
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int coeff;
+    int expo;
+    struct node *next;
+};
+
+struct node * insert(struct node * head,int coeff,int expo)
+{
+    struct node *temp;
+    struct node *newp=malloc(sizeof(struct node));
+    newp->coeff=coeff;
+    newp->expo=expo;
+    newp->next=NULL;
+    if(head==NULL||expo>head->expo)
+    {
+        newp->next=head;
+        head=newp;
+    }
+    else
+    {
+        temp=head;
+        while(temp->next!=NULL && temp->next->expo>=expo)
+        {
+            temp=temp->next;
+        }
+        newp->next=temp->next;
+        temp->next=newp;
+    }
+}
+
+
+void print(struct node *head)
+{
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d^%d",temp->coeff,temp->expo);
+        temp=temp->next;
+        if(temp!=NULL)
+            printf(" + ");
+    }
+}
+
+
+
+struct node * create(struct node *head)
+{
+    int n,i,coeff,expo;
+    printf("\nEnter the Number of Terms : ");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("Enter Coefficient for term %d : ",i+1);
+        scanf("%d",&coeff);
+        printf("Enter Exponent for term %d : ",i+1);
+        scanf("%d",&expo);
+        head=insert(head,coeff,expo);
+        print(head);
+    }
+}
+
+
+
+int main()
+{
+    struct node *ptr1,*ptr2,*head3=NULL,*head1=NULL,*head2=NULL;
+    printf("Enter the First Polynomial");
+    head1=create(head1);
+    printf("Enter the Second Polynomial");
+    head2=create(head2);
+    
+    ptr1=head1;
+    ptr2=head2;
+    while(ptr1!=NULL && ptr2!=NULL)
+    {
+        if(ptr1->expo==ptr2->expo)
+        {
+            head3=insert(head3,ptr1->coeff+ptr2->coeff,ptr1->expo);
+            ptr1=ptr1->next;
+            ptr2=ptr2->next;
+        }
+        else if(ptr1->expo>ptr2->expo)
+        {
+            head3=insert(head3,ptr1->coeff,ptr1->expo);
+            ptr1=ptr1->next;
+        }
+        else if(ptr2->expo>ptr1->expo)
+        {
+            head3=insert(head3,ptr2->coeff,ptr2->expo);
+            ptr2=ptr2->next;
+        }
+    }
+    while(ptr1!=NULL)
+    {
+        head3=insert(head3,ptr1->coeff,ptr1->expo);
+        ptr1=ptr1->next;
+    }
+    while(ptr2!=NULL)
+    {
+        head3=insert(head3,ptr2->coeff,ptr2->expo);
+        ptr2=ptr2->next;
+    }
+    printf("Resultant Polynomial : ");
+    print(head3);
+    
+}
+
+// Binary Search
+#include <stdio.h>
+
+int main()
+{
+    printf("Binary Search Algorithm \n");
+    int data = 7;
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    int l = 0 ,r = 9, m;
+    m = (l + r)/2;
+    while(l<=r){
+        
+        if(arr[m] < data){
+            l = m+1;
+            m = (l+r/2);
+        }
+        else if(arr[m] == data){
+            printf("Found at location %d", m+1);
+            break;
+        } 
+        else{
+            r = m -1;
+            m = (l+r)/2;
+        }
+    }
+    if(l > r){
+        printf("Not found");
+    }
+    
+
+    return 0;
+}
+
+
+// Fibonacci Search
+#include <stdio.h>
+
+int min(int x, int y){
+    return (x<=y) ? x:y;
+}
+
+int fibonaccisearch(int arr[],int data, int n){
+    int fibno2 = 0;
+    int fibno1 = 1;
+    int fibno = fibno2 + fibno1;
+    
+    while(fibno < n){
+        fibno2 = fibno1;
+        fibno1 = fibno;
+        fibno = fibno2 + fibno1;
+    }
+    
+    int offset = -1;
+    
+    while(fibno > 1){
+        int i = min(offset + fibno2,n-1);
+        
+        if(arr[i] > data){
+            fibno = fibno2;
+            fibno1 = fibno1 -fibno2;
+            fibno2 = fibno - fibno1;
+        }
+        else if(arr[i] < data){
+            fibno = fibno1;
+            fibno1 = fibno2;
+            fibno2 = fibno - fibno1;
+            offset  = i;
+        }
+        else{
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    int data;
+    printf("Fibonacci Search \n");
+    int arr[] = {23,45,56,67,78,98,100};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    printf("Enter data to be searched : ");
+    scanf("%d",&data);
+    int searcheddata = fibonaccisearch(arr,data,n);
+    if(searcheddata > 0){
+        printf("Data fouind at location : %d ",searcheddata);
+    }
+    else{
+        printf("Data not found...");
+    }
+    
+    
+
+    return 0;
+}
+
+//Binary Search Tree Insertion Deletion
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node * create(int a);
+struct node * insertBST(struct node *root,int a);
+struct node * minVal(struct node * root);
+struct node * deleteBST(struct node *root,int a);
+void inorder(struct node *root);
+
+int main()
+{
+    int a,choice,val;
+    struct node *root=NULL,*ptr;
+    while(1)
+    {
+        printf("\n\n1. Insert Data in BST\n2. Delete Data from BST\n3. Inorder Traversal\n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                printf("\nEnter Data to Insert : ");
+                scanf("%d",&a);
+                root=insertBST(root,a);
+                break;
+            case 2:
+                printf("\nEnter the Value to be Deleted : ");
+                scanf("%d",&val);
+                root=deleteBST(root,val);
+                printf("\nInorder :\t");
+                inorder(root);
+                break;
+            case 3:
+                printf("\nInorder :\t");
+                inorder(root);
+                break;
+        }
+        
+    }
+    inorder(root);
+}
+
+struct node * create(int a)
+{
+    struct node *newnode;
+    newnode = (struct node *) malloc(sizeof(struct node));
+    newnode->data=a;
+    newnode->left=NULL;
+    newnode->right=NULL;
+    return newnode;
+}
+
+struct node * minVal(struct node * root)
+{
+    struct node *temp=root;
+    while(temp->left!=NULL)
+    {
+        temp=temp->left;
+    }
+    return temp;
+}
+
+struct node * insertBST(struct node *root,int a)
+{
+    if(root==NULL)
+    {
+        return create(a);
+    }
+    else if(a<root->data)
+    {
+        root->left=insertBST(root->left,a);
+    }
+    else if(a>root->data)
+    {
+        root->right=insertBST(root->right,a);
+    }
+    return root;
+}
+
+struct node * deleteBST(struct node *root,int a)
+{
+    if(root==NULL)
+    {
+        return root;
+    }
+
+    if(a<root->data)
+    {
+        root->left=deleteBST(root->left,a);
+    }
+
+    else if(a>root->data)
+    {
+        root->right=deleteBST(root->right,a);
+    }
+
+    else
+    {
+        if(root->left==NULL)
+        {
+            struct node *temp=root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right==NULL)
+        {
+            struct node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        struct node * minval=minVal(root->right);
+        root->data=minval->data;
+        root->right=deleteBST(root->right,minval->data);
+    }
+    return root;
+}
+
+void inorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d\t",root->data);
+    inorder(root->right);
+}
