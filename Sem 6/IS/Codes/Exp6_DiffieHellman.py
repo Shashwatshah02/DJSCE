@@ -1,6 +1,6 @@
 # Publicly known prime number and base
 p = 23  # Prime number
-g = 5   # Base
+g = 5   # Base (Primitive root)
 
 # Alice's private key
 private_key_A = int(input("Enter key for Alice: "))
